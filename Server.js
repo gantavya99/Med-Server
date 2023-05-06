@@ -8,7 +8,7 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
   });
 
- 
+ console.log()
 mongoose.connect('mongodb+srv://medpharmstore2023:medpharm123@cluster0.2orp8hr.mongodb.net/', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
