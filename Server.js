@@ -25,6 +25,7 @@ app.use(express.json());
 
 app.use("/api/auth",authRoute);
 app.use("/api/users",userRoute);
+
 app.listen(port,()=>{
     console.log(`Server listening on port ${port}`)
 })
