@@ -1,19 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 const app = express();
 
+dotenv.config();
 
-
-app.get('/', (req, res) => {
+app.get('/hello', (req, res) => {
     res.send('Hello World!');
   });
 
- console.log()
-mongoose.connect('mongodb+srv://medpharmstore2023:medpharm123@cluster0.2orp8hr.mongodb.net/', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  
-})
+mongoose.connect(process.env.MONGO_URL)
   .then(() => {
     console.log('MongoDB connected successfully');
   })
