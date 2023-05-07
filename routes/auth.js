@@ -1,18 +1,22 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
 const saltRounds = 10;
 
+dotenv.config();
+const secretKey = process.env.JWT_SEC;
 
 //REGISTER
 router.post("/register", async (req, res) => {
     try {
         // using await makes sure we store the hashed password in our DB and not the Promise
-        const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+        
         const newUser = new User({
             username: req.body.username,
             email: req.body.email,
-            password: hashedPassword,
+            password: await bcrypt.hash(req.body.password, saltRounds),
         });
         console.log("User Added Successfully");
         //Save it to the DB
@@ -39,8 +43,8 @@ router.post("/login", async (req, res) => {
         const { password, ...others } = user._doc;
         if (passwordMatch) {
             // passwords match, user is authenticated
-            return res.status(200).json(others);
-
+            const token = jwt.sign({ userId: user._id }, secretKey, { expiresIn: '1h' });
+            return res.status(200).json({ token, ...others });
         } else {
             // passwords don't match, user is not authenticated
             return res.status(401).json("Wrong Password");
