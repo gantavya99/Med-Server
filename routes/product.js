@@ -22,12 +22,12 @@ router.get('/:id', getProduct, (req, res) => {
 router.post('/', async (req, res) => {
   const product = new Product({
     title: req.body.title,
-    desc: req.body.desc,
-    img: req.body.img,
+    description: req.body.desc,
+    imag: req.body.img,
     category: req.body.category,
     discount: req.body.discount,
     price: req.body.price,
-    quantity: req.body.quantity
+    available: req.body.quantity
   });
 
   try {
