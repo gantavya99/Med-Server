@@ -9,7 +9,6 @@ const ProductSchema = new mongoose.Schema(
         available:{type:Number, required:true},
         image:{type:String, required:true},
         discount:{type:Number},
-
     },
     {timestamps : true}
 );
