@@ -8,10 +8,9 @@ const productRoute = require("./routes/product");
 const cartRoute = require("./routes/cart");
 const orderRoute = require("./routes/order");
 const cors =require("cors");
-
 dotenv.config();
 
-
+mongoose.set('maxTimeMS', 40000);
 
 mongoose.connect(process.env.MONGO_URL)
   .then(() => {
@@ -20,9 +19,9 @@ mongoose.connect(process.env.MONGO_URL)
   .catch((err) => {
     console.error('Error connecting to MongoDB:', err);
   });
+  
 
-
-const port = 5000 || process.env.PORT;
+const port = 8080 || process.env.PORT;
 
 
 app.use(express.json());
