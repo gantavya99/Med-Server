@@ -3,15 +3,19 @@ const router = require("express").Router();
 
 const Product = require('../models/Product');
 
-// Get all products
-router.get('/', async (req, res) => {
+
+
+router.get("/", async (req, res) => {
+  const qCategory = req.query.category;
   try {
-    const products = await Product.find();
-    res.json(products);
+    const products = await Product.find({ category: qCategory });
+
+    res.status(200).json(products);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json(err);
   }
 });
+
 
 // Get a specific product by ID
 router.get('/:id', getProduct, (req, res) => {
@@ -38,6 +42,8 @@ router.post('/', async (req, res) => {
   }
 });
 
+
+
 // Middleware function to get product by ID
 async function getProduct(req, res, next) {
   try {
@@ -53,3 +59,5 @@ async function getProduct(req, res, next) {
 }
 
 module.exports = router;
+
+

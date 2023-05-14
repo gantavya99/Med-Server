@@ -7,14 +7,15 @@ const authRoute = require("./routes/auth");
 const productRoute = require("./routes/product");
 const cartRoute = require("./routes/cart");
 const orderRoute = require("./routes/order");
+const categoryRoute = require("./routes/category");
 const cors =require("cors");
 dotenv.config();
 
-mongoose.set('maxTimeMS', 40000);
+
 
 mongoose.connect(process.env.MONGO_URL)
   .then(() => {
-    console.log('MongoDB connected successfully');
+    console.log('MongoDB connected successfully!');
   })
   .catch((err) => {
     console.error('Error connecting to MongoDB:', err);
@@ -31,6 +32,7 @@ app.use("/api/users",userRoute);
 app.use("/api/products", productRoute);
 // app.use("/api/carts", cartRoute);
 app.use("/api/orders", orderRoute);
+app.use("/api/products",categoryRoute);
 
 app.listen(port,()=>{
     console.log(`Server listening on port ${port}`)
