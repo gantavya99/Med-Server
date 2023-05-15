@@ -13,9 +13,9 @@ dotenv.config();
 
 
 
-mongoose.connect("mongodb+srv://medpharmstore2023:medpharm123@cluster0.2orp8hr.mongodb.net")
+mongoose.connect(process.env.MONGO_URL)
   .then(() => {
-    console.log('MongoDB connected Successfully!');
+    console.log('MongoDB connected successfully!');
   })
   .catch((err) => {
     console.error('Error connecting to MongoDB:', err);
@@ -32,7 +32,7 @@ app.use("/api/users",userRoute);
 app.use("/api/products", productRoute);
 // app.use("/api/carts", cartRoute);
 app.use("/api/orders", orderRoute);
-app.use("/api/products",categoryRoute);
+app.use("/api/products/category",categoryRoute);
 
 app.listen(port,()=>{
     console.log(`Server listening on port ${port}`)
