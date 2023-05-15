@@ -13,9 +13,9 @@ dotenv.config();
 
 
 
-mongoose.connect(process.env.MONGO_URL)
+mongoose.connect("mongodb+srv://medpharmstore2023:medpharm123@cluster0.2orp8hr.mongodb.net")
   .then(() => {
-    console.log('MongoDB connected successfully!');
+    console.log('MongoDB connected Successfully!');
   })
   .catch((err) => {
     console.error('Error connecting to MongoDB:', err);
