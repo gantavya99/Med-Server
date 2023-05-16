@@ -25,7 +25,7 @@ mongoose.connect(process.env.MONGO_URL)
 const port = 8080 || process.env.PORT;
 
  app.get("/",(req,res)=>{
-  res.send("Hello World")
+  res.send("Hello World!!")
  })
 app.use(express.json());
 app.use(cors());
@@ -36,6 +36,6 @@ app.use("/api/products", productRoute);
 app.use("/api/orders", orderRoute);
 app.use("/api/products/category",categoryRoute);
 
-app.listen(port,()=>{
+app.listen(port, "0.0.0.0" ,() => {
     console.log(`Server listening on port ${port}`)
 })
