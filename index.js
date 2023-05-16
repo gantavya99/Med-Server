@@ -26,6 +26,7 @@ app.get("/", (req, res) => {
   res.send("Helldo World!!");
 });
 
+
 app.use(express.json());
 app.use(cors());
 app.use("/api/auth", authRoute);
