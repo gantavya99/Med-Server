@@ -39,3 +39,7 @@ app.use("/api/products/category", categoryRoute);
 app.listen(port, "0.0.0.0", () => {
   console.log(`Server listening on port ${port}`);
 });
+
+
+//mongo dump and restore - naive (CLI)
+//use mongo compass to export to CSV
