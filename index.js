@@ -19,7 +19,7 @@ mongoose.connect(process.env.MONGO_URL)
     console.error('Error connecting to MongoDB:', err);
   });
 
-const port = 8080;
+const port = process.env.port||8080;
 console.log(process.env.PORT);
 
 app.get("/", (req, res) => {
