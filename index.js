@@ -11,6 +11,8 @@ const categoryRoute = require("./routes/category");
 const cors = require("cors");
 dotenv.config();
 
+
+
 mongoose.connect(process.env.MONGO_URL)
   .then(() => {
     console.log('MongoDB connected successfully!');
@@ -19,7 +21,10 @@ mongoose.connect(process.env.MONGO_URL)
     console.error('Error connecting to MongoDB:', err);
   });
 
-const port = process.env.port||8080;
+
+
+
+
 console.log(process.env.PORT);
 
 app.get("/", (req, res) => {
@@ -36,6 +41,8 @@ app.use("/api/products", productRoute);
 app.use("/api/orders", orderRoute);
 app.use("/api/products/category", categoryRoute);
 
+
+const port = process.env.PORT||8080;
 app.listen(port, "0.0.0.0", () => {
   console.log(`Server listening on port ${port}`);
 });
