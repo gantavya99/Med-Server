@@ -26,6 +26,8 @@
     "firebase": "^9.22.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.1.0",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "server": "^1.0.38",
+    "stripe": "^12.9.0"
   }
 }
