@@ -10,6 +10,7 @@ const orderRoute = require("./routes/order");
 const categoryRoute = require("./routes/category");
 const cors = require("cors");
 dotenv.config();
+const stripe = require('stripe')('sk_test_51MNhagSHk6cCnpyb9orF6UX5RYcaM3IHjndKQY6BLdYlSCh9a7GnV6ayrseFtULOGAPJ6reWU7zXSNhfm6nBmtLb00k19zjmZ9');
 
 
 
@@ -20,8 +21,30 @@ mongoose.connect(process.env.MONGO_URL)
   .catch((err) => {
     console.error('Error connecting to MongoDB:', err);
   });
-
-
+//stripe post API
+  app.use(express.static('public'));
+  app.post("/create-checkout-session", async (req, res) => {
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: "Product Name",
+            },
+            unit_amount: 2000, // Amount in cents
+          },
+          quantity: 1,
+        },
+      ],
+      mode: "payment",
+      success_url: "http://localhost:3000?success=true",
+      cancel_url: "http://localhost:3000?canceled=true",
+    });
+  
+    res.json({ id: session.id });
+  });
 
 
 
