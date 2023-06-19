@@ -20,7 +20,7 @@ const router = express.Router();
         },
       ],
       mode: "payment",
-      success_url: `${process.env.CLIENT_URL}/checkout-success`,
+      success_url: `${process.env.CLIENT_URL}/cart`,
       cancel_url: `${process.env.CLIENT_URL}/cart`,
     });
   
