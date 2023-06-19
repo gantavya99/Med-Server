@@ -9,7 +9,7 @@ const cartRoute = require("./routes/cart");
 const orderRoute = require("./routes/order");
 const categoryRoute = require("./routes/category");
 const cors = require("cors");
-const stripe = require("./routes/stripe")
+
 dotenv.config();
 
 
