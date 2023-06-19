@@ -21,11 +21,13 @@ mongoose.connect(process.env.MONGO_URL)
   .catch((err) => {
     console.error('Error connecting to MongoDB:', err);
   });
+
+
 //stripe post API
   app.use(express.static('public'));
   app.post("/create-checkout-session", async (req, res) => {
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
+      
       line_items: [
         {
           price_data: {
