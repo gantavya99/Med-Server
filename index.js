@@ -30,32 +30,24 @@ app.use(express.static('public'));
 
 const YOUR_DOMAIN = 'http://localhost:5657';
 
-app.post('/api/create-checkout-session', async (req, res) => {
-  try {
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: [
-        {
-          price_data: {
-            currency: 'usd',
-            product_data: {
-              name: 'Product Name',
-            },
-            unit_amount: 2000, // Amount in cents
-          },
-          quantity: 1,
-        },
-      ],
-      mode: 'payment',
-      success_url: 'http://localhost:5657',
-      cancel_url: 'http://localhost:5657/cart',
-    });
-
-    res.json({ sessionId: session.id });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'An error occurred while creating the checkout session.' });
+app.post('/create-checkout-session', async (req, res) => {
+  const  price  = req.body;
+  if (!price) {
+    return res.status(400).json({ error: 'Invalid price data' });
   }
+  
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ['card'],
+    line_items: [{
+      price,
+      quantity: 1,
+    }],
+    mode: 'payment',
+    success_url: 'https://example.com/success',
+    cancel_url: 'https://example.com/cancel',
+  });
+
+  res.json({ sessionId: session.id });
 });
 
 
