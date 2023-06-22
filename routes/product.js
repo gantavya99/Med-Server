@@ -29,7 +29,7 @@ router.get("/all", async (req, res) => {
     res.status(500).json(err);
   }
 });
-
+//
 
 // Get a specific product by ID
 router.get('/:id', getProduct, (req, res) => {
