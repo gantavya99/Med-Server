@@ -19,6 +19,7 @@
   "homepage": "https://github.com/gantavya99/Med-Server#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.1",
     "config": "^3.3.9",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
@@ -27,6 +28,7 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.1.0",
     "nodemon": "^2.0.22",
+    "serve-static": "^1.15.0",
     "server": "^1.0.38",
     "stripe": "^12.9.0"
   }

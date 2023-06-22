@@ -9,7 +9,7 @@ const cartRoute = require("./routes/cart");
 const orderRoute = require("./routes/order");
 const categoryRoute = require("./routes/category");
 const cors = require("cors");
-
+const bodyParser = require('body-parser');
 dotenv.config();
 
 
@@ -22,33 +22,45 @@ mongoose.connect(process.env.MONGO_URL)
   });
 
 
-//stripe post API
+const stripe = require('stripe')(process.env.STRIPE_KEY);
 
-// This is your test secret API key.
-const stripe = require('stripe')('sk_test_51MNhagSHk6cCnpyb9orF6UX5RYcaM3IHjndKQY6BLdYlSCh9a7GnV6ayrseFtULOGAPJ6reWU7zXSNhfm6nBmtLb00k19zjmZ9');
-app.use(express.static('public'));
 
-const YOUR_DOMAIN = 'http://localhost:5657';
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.post('/create-checkout-session', async (req, res) => {
-  const  price  = req.body;
-  if (!price) {
-    return res.status(400).json({ error: 'Invalid price data' });
-  }
-  
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ['card'],
-    line_items: [{
-      price,
-      quantity: 1,
-    }],
-    mode: 'payment',
-    success_url: 'https://example.com/success',
-    cancel_url: 'https://example.com/cancel',
-  });
+  const { price } = req.body;
 
-  res.json({ sessionId: session.id });
+  try {
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Product Name',
+              description: 'Product Description',
+            },
+            unit_amount: price * 100, // Stripe expects price in cents
+          },
+          quantity: 1,
+        },
+      ],
+      mode: 'payment',
+      success_url: 'https://med-client.vercel.app/success',
+      cancel_url: 'https://med-client.vercel.app/cart',
+    });
+
+    res.json({ sessionId: session.id });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred' });
+  }
 });
+
+
+
 
 
   
@@ -59,6 +71,8 @@ app.get("/", (req, res) => {
   res.send("Helldo World!!");
 });
 
+
+app.use(bodyParser.json());
 
 app.use(express.json());
 app.use(cors());
