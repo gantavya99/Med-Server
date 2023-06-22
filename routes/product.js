@@ -1,7 +1,9 @@
 const router = require("express").Router();
-
-
 const Product = require('../models/Product');
+
+
+
+
 router.get("/",(req,res)=>{
   res.send("API call successfull for products");
 })
@@ -31,6 +33,10 @@ router.get("/all", async (req, res) => {
 
 // Get a specific product by ID
 router.get('/:id', getProduct, (req, res) => {
+  res.json(res.product);
+});
+
+router.get('/:category',getProduct,(req,res)=>{
   res.json(res.product);
 });
 
