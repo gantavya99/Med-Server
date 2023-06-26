@@ -12,7 +12,6 @@ const cors = require("cors");
 const bodyParser = require('body-parser');
 dotenv.config();
 
-
 mongoose.connect(process.env.MONGO_URL)
   .then(() => {
     console.log('MongoDB connected successfully!');
@@ -21,9 +20,7 @@ mongoose.connect(process.env.MONGO_URL)
     console.error('Error connecting to MongoDB:', err);
   });
 
-
 const stripe = require('stripe')(process.env.STRIPE_KEY);
-
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -59,36 +56,20 @@ app.post('/create-checkout-session', async (req, res) => {
   }
 });
 
-
-
-
-
-  
-
-console.log(process.env.PORT);
-
-app.get("/", (req, res) => {
-  res.send("Helldo World!!");
-});
-
-
-app.use(bodyParser.json());
-
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
-// app.use("/api/carts", cartRoute);
+app.use("/api/carts", cartRoute); // Include cart routes
 app.use("/api/orders", orderRoute);
 app.use("/api/products/category", categoryRoute);
 
+app.get("/", (req, res) => {
+  res.send("Hello World!!");
+});
 
-const port = process.env.PORT||8080;
+const port = process.env.PORT || 8080;
 app.listen(port, "0.0.0.0", () => {
   console.log(`Server listening on port ${port}`);
 });
-
-
-//mongo dump and restore - naive (CLI)
-//use mongo compass to export to CSV
