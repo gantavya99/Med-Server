@@ -8,6 +8,7 @@ const productRoute = require("./routes/product");
 const cartRoute = require("./routes/cart");
 const orderRoute = require("./routes/order");
 const categoryRoute = require("./routes/category");
+const coinbaseRoute = require("./routes/coinbase");
 const cors = require("cors");
 const bodyParser = require('body-parser');
 dotenv.config();
@@ -79,7 +80,7 @@ app.use(cors());
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
-// app.use("/api/carts", cartRoute);
+ app.use("/api/coinbase", coinbaseRoute);
 app.use("/api/orders", orderRoute);
 app.use("/api/products/category", categoryRoute);
 
