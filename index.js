@@ -61,15 +61,8 @@ app.post('/create-checkout-session', async (req, res) => {
 });
 
 
-
-
-
-  
-
-console.log(process.env.PORT);
-
 app.get("/", (req, res) => {
-  res.send("Helldo World!!");
+  res.send("Hello World!!");
 });
 
 
@@ -80,7 +73,7 @@ app.use(cors());
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
- app.use("/api/coinbase", coinbaseRoute);
+app.use("/api/coinbase", coinbaseRoute);
 app.use("/api/orders", orderRoute);
 app.use("/api/products/category", categoryRoute);
 
