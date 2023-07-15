@@ -12,9 +12,7 @@ const secretKey = process.env.JWT_SEC;
 router.post("/register", async (req, res) => {
     try {
         // using await makes sure we store the hashed password in our DB and not the Promise
-        
         const newUser = new User({
-            username: req.body.username,
             email: req.body.email,
             password: await bcrypt.hash(req.body.password, saltRounds),
         });
