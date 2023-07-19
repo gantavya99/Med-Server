@@ -30,10 +30,10 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
     try {
-        const user = await User.findOne({ username: req.body.username });
+        const user = await User.findOne({ email: req.body.email });
         if (!user) {
             // user with the given username not found
-            return res.status(404).json("Username not found");
+            return res.status(404).json("Email not found");
         }
         // compare the entered password with the hashed password
         const passwordMatch = await bcrypt.compare(req.body.password, user.password);
@@ -41,7 +41,7 @@ router.post("/login", async (req, res) => {
         const { password, ...others } = user._doc;
         if (passwordMatch) {
             // passwords match, user is authenticated
-            const token = jwt.sign({ userId: user._id }, secretKey, { expiresIn: '1h' });
+            const token = jwt.sign({ userId: user._id }, secretKey, { expiresIn: '3d' });
             return res.status(200).json({ token, ...others });
         } else {
             // passwords don't match, user is not authenticated
