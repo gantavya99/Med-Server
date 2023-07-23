@@ -35,7 +35,6 @@ router.post('/register', async (req, res) => {
   });
 
 //LOGIN
-
 router.get('/users', async (req, res) => {
     try {
       // Fetch all users from the database
